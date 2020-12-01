@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="epers.tactics.PartySpec" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-12-01T22:59:23" hostname="lucky-dev" time="0.451">
+  <properties/>
+  <testcase name="Creo una party y verifico que se haya persistido" classname="epers.tactics.PartySpec" time="0.445"/>
+  <testcase name="Recupero una party y verifico que su nombre sea correcto" classname="epers.tactics.PartySpec" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
