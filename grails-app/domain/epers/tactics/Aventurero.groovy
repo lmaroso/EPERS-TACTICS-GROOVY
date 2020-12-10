@@ -1,10 +1,9 @@
 package epers.tactics
 
-class Party {
+class Aventurero {
 
     Long id
     String nombre
-    Integer cantidadDeAventureros
 
     static mapping = {
     id(generator: 'org.hibernate.id.enhanced.SequenceStyleGenerator', 
@@ -12,10 +11,10 @@ class Party {
     }
 
     static constraints = {
-        nombre size: 5..40, blank: false
+        nombre size: 3..40, blank: false
     }
 
-    static hasMany = [aventureros: Aventurero]
+    static belongsTo= [party: Party]
 
     String toString() {
         nombre
