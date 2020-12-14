@@ -31,29 +31,29 @@ class PartySpec extends Specification implements DomainUnitTest<Party> {
         Party.findByNombre("Samid Party").nombre == "Samid Party"
     }
 
-    void "asd"() {
+    void "Recupero una party utilizando la función findByCantidadDeAventureros"() {
         expect:
         Party.findByCantidadDeAventureros(2).cantidadDeAventureros == 2
     }
 
-    void "papaia"() {
+    void "Actualizo el nombre de una Party"() {
         def party = Party.get(1)
-        party.nombre = "Viale Party"
+        def nuevo_nombre = "Viale Party"
+        party.nombre = nuevo_nombre
         party.save()
 
         expect:
-        Party.get(1).nombre == "Viale Party"
+        Party.get(1).nombre == nuevo_nombre
     }
 
-    void "banana"() {
+    void "Elimino una party"() {
         def party = Party.get(1)
         party.delete()
 
-        // expect:
         assertNull Party.get(1)
 	}
 
-    void "test de id"() {
+    void "Recupero parties por ID y verifico que se generen secuencialmente"() {
         expect:
         Party.findById(1).nombre == "Samid Party" && Party.findById(2).nombre == "Viale Party"
 	}

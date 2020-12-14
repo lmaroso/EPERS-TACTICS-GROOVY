@@ -7,43 +7,52 @@ class AventureroSpec extends Specification implements DomainUnitTest<Aventurero>
 
     void setup() {
         def samidParty = new Party(nombre: "Samid Party", cantidadDeAventureros: 1).save()
-        new Aventurero(nombre: 'Pepe', party: samidParty).save()
+        def vialeParty = new Party(nombre: "Viale Party", cantidadDeAventureros: 1).save()
+        new Aventurero(nombre: 'Samid', party: samidParty).save()
+        new Aventurero(nombre: 'Viale', party: vialeParty).save()
     }
 
     void "Creo un Aventurero y verifico que se haya persistido"() {
+        setup:
+        def samidParty = new Party(nombre: "Samid Party", cantidadDeAventureros: 1).save()
+        new Aventurero(nombre: 'Nuevo Aventurero', party: samidParty).save()
+
         expect:
-        Aventurero.count() == 1
+        Aventurero.count() == 3
     }
 
-    /* void "Recupero una party y verifico que su nombre sea correcto"() {
-        expect:
-        Aventurero.get(1).nombre == "Samid"
-    }
+     void "Recupero un aventurero y verifico que su nombre sea correcto"() {
+         setup:
+         def aventurero = Aventurero.get(1)
 
-    void "Recupero una party utilizando la función findByNombre"() {
+        expect:
+        aventurero.nombre == "Samid"
+    }
+   
+    void "Recupero un aventurero utilizando la función findByNombre"() {
         expect:
         Aventurero.findByNombre("Samid").nombre == "Samid"
     }
-
-    void "papaia"() {
-        def party = Aventurero.get(1)
-        Aventurero.nombre = "Viale"
-        Aventurero.save()
+ 
+    void "Actualizo el nombre de un aventurero"() {
+        def aventurero = Aventurero.get(1)
+        def nuevo_nombre = "Nuevo Nombre"
+        aventurero.nombre = nuevo_nombre
+        aventurero.save()
 
         expect:
-        Aventurero.get(1).nombre == "Viale"
+        Aventurero.get(1).nombre == nuevo_nombre
     }
 
-    void "banana"() {
-        def party = Aventurero.get(1)
-        Aventurero.delete()
+   void "Elimino un aventurero"() {
+        def aventurero = Aventurero.get(1)
+        aventurero.delete()
 
-        // expect:
         assertNull Aventurero.get(1)
 	}
 
-    void "test de id"() {
+   void "Recupero aventureros por ID y verifico que se generen secuencialmente"() {
         expect:
         Aventurero.findById(1).nombre == "Samid" && Aventurero.findById(2).nombre == "Viale"
-	}*/
+	}
 }
