@@ -8,6 +8,7 @@ class AventureroSpec extends Specification implements DomainUnitTest<Aventurero>
     void setup() {
         def samidParty = new Party(nombre: "Samid Party", cantidadDeAventureros: 1).save()
         def vialeParty = new Party(nombre: "Viale Party", cantidadDeAventureros: 1).save()
+        
         new Aventurero(nombre: 'Samid', party: samidParty).save()
         new Aventurero(nombre: 'Viale', party: vialeParty).save()
     }
@@ -55,4 +56,10 @@ class AventureroSpec extends Specification implements DomainUnitTest<Aventurero>
         expect:
         Aventurero.findById(1).nombre == "Samid" && Aventurero.findById(2).nombre == "Viale"
 	}
+
+    void "Recupero todos los aventureros del setup"() {
+        expect:
+        Aventurero.list().size() == 2
+    }
+
 }

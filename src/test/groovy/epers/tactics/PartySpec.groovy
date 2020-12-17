@@ -9,7 +9,14 @@ import spock.lang.Stepwise
 class PartySpec extends Specification implements DomainUnitTest<Party> {
 
     void setup() {
-        new Party(nombre: 'Samid Party', cantidadDeAventureros: 2).save()
+        def samid = new Aventurero(nombre: 'Samid').save()
+        def viale = new Aventurero(nombre: 'Viale').save()
+        def aventureros = []
+
+        aventureros.add(samid)
+        aventureros.add(viale)
+
+        new Party(nombre: 'Samid Party', cantidadDeAventureros: 2, aventureros: aventureros ).save()
         new Party(nombre: 'Viale Party', cantidadDeAventureros: 5).save()
     }
 
@@ -20,6 +27,17 @@ class PartySpec extends Specification implements DomainUnitTest<Party> {
         expect:
         Party.count() == 3
     }
+
+    void "Verifico que la party tenga aventureros"() {
+        expect:
+        Party.get(1).aventureros.size() == 2
+    }
+
+    void "Verifico que una de las parties coincida con las que agregué"() {
+        expect:
+        Party.get(1).aventureros.first().nombre == "Viale"
+    }
+
 
     void "Recupero una party y verifico que su nombre sea correcto"() {
         expect:
@@ -57,4 +75,11 @@ class PartySpec extends Specification implements DomainUnitTest<Party> {
         expect:
         Party.findById(1).nombre == "Samid Party" && Party.findById(2).nombre == "Viale Party"
 	}
+
+    void "Recupero todos las parties del setup"() {
+        expect:
+        Aventurero.list().size() == 2
+    }
+
+
 }
